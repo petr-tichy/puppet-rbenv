@@ -58,6 +58,7 @@
 class rbenv (
   $repo_path   = 'https://github.com/sstephenson/rbenv.git',
   $install_dir = '/usr/local/rbenv',
+	$user        = undef,
   $owner       = 'root',
   $group       = $rbenv::deps::group,
   $latest      = false,
@@ -69,7 +70,7 @@ class rbenv (
     creates => $install_dir,
     user    => $owner,
     require => Package['git'],
-  }
+  } ->
 
   file { [
     $install_dir,
@@ -98,7 +99,5 @@ class rbenv (
       require => File[$install_dir],
     }
   }
-
-  Exec['git-clone-rbenv'] -> File[$install_dir]
 
 }
